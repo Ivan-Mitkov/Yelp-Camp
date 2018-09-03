@@ -1,0 +1,13 @@
+<h1>Yelp Camp</h1>
+<h2>Campgrounds</h2>
+<% campgrounds.forEach((camp)=>{%>
+    <div>
+        <div>
+                <%=camp['name'];%>
+        </div>
+        <div>
+                <img src=<%=camp['image'] %> alt=<%=camp['name']%>>
+        </div>
+        
+    </div>
+<% }); %>
