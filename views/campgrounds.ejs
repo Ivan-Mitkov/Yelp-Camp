@@ -1,13 +1,37 @@
-<h1>Yelp Camp</h1>
-<h2>Campgrounds</h2>
-<% campgrounds.forEach((camp)=>{%>
-    <div>
-        <div>
-                <%=camp['name'];%>
+<% include partials/header%>
+    <div class='container'>
+        <header class="jumbotron">
+
+            <h1>Welcome to Yelp Camp</h1>
+
+            <p>View our campgrounds</p>
+            <div>
+                <a href="/campgrounds/new" class='btn btn-primary btn-lg'>Add new campground</a>
+            </div>
+
+        </header>
+
+
+        <div class='row' style='display:flex; flex-wrap: wrap;' >
+
+            <% campgrounds.forEach((camp)=>{ %>
+
+                <div class="col col-md-3 col-sm-6">
+                    <div class='thumbnail'  >
+                        <img src=<%=camp[ 'image'] %> alt=<%=camp['name']%> style='height:300px '>
+                            <div class="caption">
+                                <%=camp['name'];%>
+                            </div>
+
+                    </div>
+
+                </div>
+
+                <% }); %>
         </div>
-        <div>
-                <img src=<%=camp['image'] %> alt=<%=camp['name']%>>
-        </div>
-        
     </div>
-<% }); %>
+
+    </div>
+
+
+    <% include partials/footer%>
