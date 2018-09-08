@@ -1,9 +1,26 @@
 <%include partials/header%>
 
-<h1><%=campground.name%></h1>
-    
+<h1>
+    <%=campground.name%>
+</h1>
+
 <div>
     <img src=<%=campground.image%>>
-    <div ><%=campground.description%> </p>
+    <div>
+        <%=campground.description%>
+    </div>
+    <%campground.comments.forEach(comment=>{%>
+    <div>
+        <div>
+            <strong>
+                <%=comment.author%>
+            </strong>
+
+        </div>
+        <div>
+            <%=comment.text%>
+        </div>
+    </div>
+    <% })%>
 </div>
 <%include partials/footer %>
