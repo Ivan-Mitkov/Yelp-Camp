@@ -1,0 +1,29 @@
+.honetitle,.hsixtitle{
+    color:#343A40;
+   
+}
+.hsixtitle{
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.descrFull{
+    text-align:justify;
+     justify-content: flex-start;
+}
+
+.commentBody{
+    background-color: rgb(241, 239, 239);
+     margin:0;
+     padding: 0;
+}
+
+.commentbutton{
+    margin:0;
+    padding: 0 20px 0 0;
+}
+
+.comment{
+    margin:0;
+    padding: 10px 20px
+}

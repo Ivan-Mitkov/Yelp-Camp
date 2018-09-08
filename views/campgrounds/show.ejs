@@ -1,29 +1,59 @@
 <% include ../partials/header%>
+<div class='container'>
+    <h1 class='honetitle'>
+        <%=campground.name%>
+    </h1>
+    <div class='row'>
 
-<h1>
-    <%=campground.name%>
-</h1>
-
-<div>
-    <img src=<%=campground.image%>>
-    <div>
-        <%=campground.description%>
-    </div>
-    <div>
-        <a class="btn btn-info" href="/campgrounds/<%=campground.id%>/comments/new">Add new comment</a>
-    </div>
-    <%campground.comments.forEach(comment=>{%>
-    <div>
-        <div>
-            <strong>
-                <%=comment.author%>
-            </strong>
-
+        <div class='col-md-4 '>
+            <p class=lead>Yelp Camp</p>
+            <div class='list-group'>
+                <div class="list-group-item active">Cras justo odio</div>
+                <div class="list-group-item">Dapibus ac facilisis in</div>
+                <div class="list-group-item">Morbi leo risus</div>
+                <div class="list-group-item">Porta ac consectetur ac</div>
+                <div class="list-group-item">Vestibulum at eros</div>
+            </div>
         </div>
-        <div>
-            <%=comment.text%>
+        <div class='col-md-8'>
+            <div class='card'>
+                <img class="card-img-top img-fluid" src=<%=campground.image %>>
+                <h6 class="card-title hsixtitle">
+                        <%=campground.name%>  
+                </h6>
+                <div class="card-body">
+                    <div class="card-text descrFull">
+                        <%=campground.description%>
+                    </div>
+                    
+
+                </div>
+                <div class="card-body commentBody">
+                    <div class='text-right commentbutton' >
+                        <a class="btn btn-info" href="/campgrounds/<%=campground.id%>/comments/new">Add new comment</a>
+                    </div>
+                    <%campground.comments.forEach(comment=>{%>
+                    <div class="card-text comment">
+                        <div>
+                            
+                            <strong>
+                                <%=comment.author%>
+                            </strong>
+                            <div class="float-right"><%=new Date().toLocaleDateString('en-GB')%></div>
+                        </div>
+                        <div>
+                            <%=comment.text%>
+                        </div>
+                    </div>
+                    <% })%>
+                </div>
+
+            </div>
         </div>
     </div>
-    <% })%>
+
 </div>
+
+
+
 <% include ../partials/footer%>
