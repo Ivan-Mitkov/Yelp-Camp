@@ -13,7 +13,15 @@ let campGroundSchema = new mongoose.Schema({
            type: mongoose.Schema.Types.ObjectId,
            ref: "Comment"
         }
-     ]
+     ],
+     author: {
+        id:{
+            type:mongoose.Schema.Types.ObjectId,
+            //need model to refer with this id
+            ref:'User'
+        },
+        username:String
+    }   
 });
 
 module.exports = mongoose.model('Campground', campGroundSchema);

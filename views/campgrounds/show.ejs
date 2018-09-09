@@ -25,7 +25,10 @@
                     <div class="card-text descrFull">
                         <%=campground.description%>
                     </div>
-                    
+                    <h6>
+                        <em> Added by: <%=campground.author.username%></em>
+                       
+                    </h6>
 
                 </div>
                 <div class="card-body commentBody">
@@ -37,7 +40,7 @@
                         <div>
                             
                             <strong>
-                                <%=comment.author%>
+                                <%=comment.author.username%>
                             </strong>
                             <div class="float-right"><%=new Date().toLocaleDateString('en-GB')%></div>
                         </div>

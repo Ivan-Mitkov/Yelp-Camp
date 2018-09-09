@@ -6,7 +6,7 @@ var data = [
     {
         name: "xижа Безбог", 
         image: "http://www.bulgarian-mountains.com/Huts/Pirin/Bezbog/hija-bezbog-image-9",
-        description: "Разположена е край северната част на Безбожкото езеро в Северен Пирин. Предаставлява масивна пететажна сграда с капацитет 130 места с етажни санитарни възли и бани. Хижата е електрифицирана, водоснабдена, с централно отопление. Има ресторант, кафе-аперитив, лафка. Разполага с туристическа кухня и столова.Съседни туристически обекти:- Попово езеро - 1.15ч.- х.Пирин - 6.00ч.- засл.Тевно езеро - 3.30ч.- х.Демяница - 4.30ч.- Кременски езера - 2.30ч.- вр.Безбог/2645м./ - 1.30ч.- вр.Полежан/2851м./ - 2.30ч.- вр.Орловец/2707м./ - 2.30ч.- Самодивски връх /Дженгал/ - 3.30ч.Изходно място: От х.Гоце Делчев - 2.30ч. по маркирана пътека или 0.30ч. с лифта. "
+        description: "  "
     },
     {
         name: "xижа Бъндерица", 
@@ -33,36 +33,36 @@ function seedDB(){
             console.log(err);
         }
         console.log("removed campgrounds!");
-        Comment.remove({}, function(err) {
-            if(err){
-                console.log(err);
-            }
-            console.log("removed comments!");
+        // Comment.remove({}, function(err) {
+        //     if(err){
+        //         console.log(err);
+        //     }
+        //     console.log("removed comments!");
              //add a few campgrounds
-            data.forEach(function(seed){
-                Campground.create(seed, function(err, campground){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log("added a campground");
-                        //create a comment
-                        Comment.create(
-                            {
-                                text: "This place is great, but I wish there was internet",
-                                author: "Homer"
-                            }, function(err, comment){
-                                if(err){
-                                    console.log(err);
-                                } else {
-                                    campground.comments.push(comment);
-                                    campground.save();
-                                    console.log("Created new comment");
-                                }
-                            });
-                    }
-                });
-            });
-        });
+            // data.forEach(function(seed){
+            //     Campground.create(seed, function(err, campground){
+            //         if(err){
+            //             console.log(err);
+            //         } else {
+            //             console.log("added a campground");
+            //             //create a comment
+                        // Comment.create(
+                        //     {
+                        //         text: "This place is great, but I wish there was internet",
+                        //         author: "Homer"
+                        //     }, function(err, comment){
+                        //         if(err){
+                        //             console.log(err);
+                        //         } else {
+                        //             campground.comments.push(comment);
+                        //             campground.save();
+                        //             console.log("Created new comment");
+                        //         }
+                        //     });
+                    // }
+        //         });
+        //     });
+        // });
     }); 
     //add a few comments
 }
