@@ -42,22 +42,27 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 //auth login  come from passpor-local-mongoose
 passport.use(new LocalStrategy(User.authenticate('local')));
-
+//passing object to every route
+app.use((req,res,next)=>{
+    res.locals.currentUser=req.user;
+    next();
+});
 
 
 //==========
 app.get('/', (req, res) => {
-    res.render('lending');
+    res.render('lending', { currentUser: req.user });
 });
 
 //Index rout show all campgrounds
 app.get('/campgrounds', (req, res) => {
+    // console.log(req.user);
     //   get all campground from db
     Campground.find({}, (err, allCampgrounds) => {
         if (err) {
             console.log('Error retrieving campgrounds');
         } else {
-            res.render('campgrounds/index', { campgrounds: allCampgrounds });
+            res.render('campgrounds/index', { campgrounds: allCampgrounds, currentUser: req.user });
         }
 
     })
@@ -104,16 +109,16 @@ app.get('/campgrounds/:id', (req, res) => {
 
 //======================
 //COMMENTS ROUTES
-app.get('/campgrounds/:id/comments/new', (req, res) => {
+app.get('/campgrounds/:id/comments/new', isLoggedIn, (req, res) => {
     Campground.findById(req.params.id, (err, campground) => {
         if (err) {
             res.render('comments/new');
         } else {
-            res.render('comments/new', { campground: campground });
+            res.render('comments/new', { campground: campground});
         }
     });
 });
-app.post('/campgrounds/:id/comments', (req, res) => {
+app.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
     //lookup campground using id
     Campground.findById(req.params.id, (err, camp) => {
         if (err) {
@@ -176,7 +181,7 @@ app.post('/login',
 //logout routes
 app.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect('/campgrounds');
     //still can go to /secret
 });
 
