@@ -2,7 +2,10 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Campground = require('./models/campground.js'),
-    Comment=require('./models/comment.js'),
+    Comment = require('./models/comment.js'),
+    passport = require('passport'),
+    User = require('./models/user.js'),
+    LocalStrategy = require('passport-local'),
     seedDb = require('./seeds.js');
 
 
@@ -10,10 +13,10 @@ const express = require('express'),
 const app = express();
 let port = process.env.port || 3000;
 
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname+"/public"));
+app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
 seedDb();
@@ -100,12 +103,12 @@ app.post('/campgrounds/:id/comments', (req, res) => {
                     camp.comments.push(newComment);
                     //save the campground
                     camp.save();
-                     //redirect to campground show page
-                     res.redirect(`/campgrounds/${camp._id}`);
+                    //redirect to campground show page
+                    res.redirect(`/campgrounds/${camp._id}`);
                 }
             })
 
-           
+
         }
     });
 
