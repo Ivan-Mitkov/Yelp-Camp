@@ -21,6 +21,31 @@ app.set('view engine', 'ejs');
 
 seedDb();
 
+// configure authentication
+
+app.use(require('express-session')({
+    secret:'Nkjdskydjshfdkshfjsdfhds',
+    resave:false,
+    saveUninitialized:false
+
+}));
+// the credentials used to authenticate a user will only be transmitted during
+// the login request. If authentication succeeds, a session will be established and maintained 
+//via a cookie set in the user's browser.
+// Each subsequent request will not contain credentials, 
+//but rather the unique cookie that identifies the session. 
+//In order to support login sessions, Passport will serialize and deserialize user instances
+// to and from the session.
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+//auth login  come from passpor-local-mongoose
+passport.use(new LocalStrategy(User.authenticate('local')));
+
+
+
+//==========
 app.get('/', (req, res) => {
     res.render('lending');
 });
