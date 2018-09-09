@@ -24,9 +24,9 @@ seedDb();
 // configure authentication
 
 app.use(require('express-session')({
-    secret:'Nkjdskydjshfdkshfjsdfhds',
-    resave:false,
-    saveUninitialized:false
+    secret: 'Nkjdskydjshfdkshfjsdfhds',
+    resave: false,
+    saveUninitialized: false
 
 }));
 // the credentials used to authenticate a user will only be transmitted during
@@ -140,6 +140,52 @@ app.post('/campgrounds/:id/comments', (req, res) => {
 });
 
 //=====================
+//AUTH ROUTES
+//show register form
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+app.post('/register', (req, res) => {
+    //register user take like args username, password, callback. In callback we are making authentication
+    User.register(new User({ username: req.body.username }),
+        req.body.password,
+        (err, user) => {
+            if (err) {
+                return res.redirect('/register');
+            }
+            //passport authenticate take 3 args req, res and callback
+            passport.authenticate('local')(req, res, () => {
+                res.redirect('/campgrounds');
+            });
+        });
+});
+//login routes
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+//middleware
+app.post('/login',
+    passport.authenticate('local', {
+        successRedirect: '/campgrounds',
+        failureRedirect: '/login'
+    }),
+    (req, res) => {
+    });
+
+//logout routes
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+    //still can go to /secret
+});
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
 
 app.listen(port, () => {
     console.log('Yelp Camp is listening on port:' + port)
