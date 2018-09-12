@@ -1,10 +1,13 @@
 "use strict"
 
 const express=require('express');
+const bodyParser=require('body-parser');
 const router=express.Router();
-
+const expressSanitizer=require('express-sanitizer');
 const Campground=require('../models/campground');
 
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(expressSanitizer());//must be after body parser
 //Index rout show all campgrounds
 router.get('/', (req, res) => {
     // console.log(req.user);
@@ -61,6 +64,36 @@ router.get('/:id', (req, res) => {
     });
 
 });
+//EDIT
+router.get('/:id/edit',(req,res)=>{
+    Campground.findById(req.params.id,(err,editCampground)=>{
+        if(err){
+            res.redirect('/campgrounds');
+        }else{
+            res.render('campgrounds/edit',{campground:editCampground});
+        }
+    })
+});
+
+
+//UPDATE
+router.put('/:id',(req,res)=>{
+let dataToUpdate={
+    name:req.body.name,
+    image:req.body.image,
+    description:req.body.description
+}
+   Campground.findByIdAndUpdate(req.params.id,dataToUpdate,(err,updatedCamp)=>{
+    if(err){
+        console.log(err);
+        res.redirect('/campgrounds');
+    }else{
+        res.redirect('/campgrounds/'+req.params.id)
+    }
+   })
+})
+
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();

@@ -26,10 +26,9 @@
                         <%=campground.description%>
                     </div>
                     <h6>
-                        <em> Added by: <%=campground.author.username%></em>
-                       
+                        <em> Added by: <%=campground.author.username%></em>                       
                     </h6>
-
+                    <a class='btn btn-warning' href="/campgrounds/<%=campground._id%>/edit">Edit</a>
                 </div>
                 <div class="card-body commentBody">
                     <div class='text-right commentbutton' >
