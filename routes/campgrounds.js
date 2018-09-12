@@ -93,6 +93,17 @@ let dataToUpdate={
    })
 })
 
+//DELETE
+router.delete('/:id',(req,res)=>{
+    Campground.findOneAndRemove(req.params.id,(err)=>{
+        if(err){
+            console.log(err);
+            res.redirect('/campgrounds');
+        }else{
+            res.redirect('/campgrounds');
+        }
+    })
+})
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {

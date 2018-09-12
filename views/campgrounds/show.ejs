@@ -19,29 +19,35 @@
             <div class='card'>
                 <img class="card-img-top img-fluid" src=<%=campground.image %>>
                 <h6 class="card-title hsixtitle">
-                        <%=campground.name%>  
+                    <%=campground.name%>
                 </h6>
                 <div class="card-body">
                     <div class="card-text descrFull">
                         <%=campground.description%>
                     </div>
                     <h6>
-                        <em> Added by: <%=campground.author.username%></em>                       
+                        <em> Added by:
+                            <%=campground.author.username%></em>
                     </h6>
                     <a class='btn btn-warning' href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+                    <form id='deleteForm' action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+                        <button class='btn btn-danger'>Delete Campground</button>
+                    </form>
                 </div>
                 <div class="card-body commentBody">
-                    <div class='text-right commentbutton' >
+                    <div class='text-right commentbutton'>
                         <a class="btn btn-info" href="/campgrounds/<%=campground.id%>/comments/new">Add new comment</a>
                     </div>
                     <%campground.comments.forEach(comment=>{%>
                     <div class="card-text comment">
                         <div>
-                            
+
                             <strong>
                                 <%=comment.author.username%>
                             </strong>
-                            <div class="float-right"><%=new Date().toLocaleDateString('en-GB')%></div>
+                            <div class="float-right">
+                                <%=new Date().toLocaleDateString('en-GB')%>
+                            </div>
                         </div>
                         <div>
                             <%=comment.text%>
