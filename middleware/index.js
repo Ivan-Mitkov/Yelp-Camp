@@ -1,7 +1,7 @@
 let middleware = {};
 
-const Campground=require('../models/campground');
-const Comment=require('../models/comment');
+const Campground = require('../models/campground');
+const Comment = require('../models/comment');
 
 middleware.checkCampOwnership = function (req, res, next) {
     //is user logged in?
@@ -52,6 +52,7 @@ middleware.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
+    req.flash('error', 'Please login first');
     res.redirect('/login');
 
 }

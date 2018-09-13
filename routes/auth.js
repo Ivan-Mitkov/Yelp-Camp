@@ -1,8 +1,8 @@
 "use strict"
-const express=require('express');
-const router=express.Router();
-const passport=require('passport');
-const User=require('../models/user');
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
+const User = require('../models/user');
 
 
 //==========
@@ -33,7 +33,7 @@ router.post('/register', (req, res) => {
 });
 //login routes
 router.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', { message: req.flash('error') });
 });
 
 //middleware
@@ -59,4 +59,4 @@ function isLoggedIn(req, res, next) {
     res.redirect('/login');
 }
 
-module.exports=router;
+module.exports = router;
