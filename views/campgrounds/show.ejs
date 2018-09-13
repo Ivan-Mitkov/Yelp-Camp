@@ -58,8 +58,17 @@
                         <div>
                             <%=comment.text%>
                         </div>
+                        <!-- show comments edit and delete only to there owner -->
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)){%>
                         <a class='btn btn-xs btn-warning'
                              href="/campgrounds/<%=campground.id%>/comments/<%=comment._id%>/edit">Edit</a>
+                             <!-- DELETE can't be just a because we need a POST request -->
+                        <form id=buttonDelForm action="/campgrounds/<%=campground.id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                        <% }%>
                     </div>
                     <% })%>
                 </div>
