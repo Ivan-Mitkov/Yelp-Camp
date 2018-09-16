@@ -39,14 +39,14 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
         username: req.user.username
     }
     let newCampGround = { name: name, image: image, description: description, author: author };
-    console.log(newCampGround);
+    // console.log(newCampGround);
     // Create and save to the DB
     Campground.create(newCampGround, (err, newlyCreatedCamp) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(newCampGround);
-            res.redirect('/');
+            // console.log(newCampGround);
+            res.redirect('back');
         }
     })
 

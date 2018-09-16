@@ -18,8 +18,18 @@ const commentRoutes = require('./routes/comments.js'),
 
 const app = express();
 let port = process.env.port || 3000;
-let url = process.env.DATABASEURL||"mongodb://localhost/yelp_camp";
+// let url = process.env.DATABASEURL||"mongodb://localhost/yelp_camp";
+// mongodb://ivan:YelpCamp1@ds161939.mlab.com:61939/hut
+let url ="mongodb://ivan:YelpCamp1@ds161939.mlab.com:61939/hut";
+
+//password YelpCamp1
+
 mongoose.connect(url, { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("connected");
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
