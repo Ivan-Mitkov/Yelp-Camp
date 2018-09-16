@@ -23,17 +23,20 @@ router.post('/register', (req, res) => {
         req.body.password,
         (err, user) => {
             if (err) {
+                console.log(err);
+                req.flash('error', ` ${err.message}`);
                 return res.redirect('/register');
             }
             //passport authenticate take 3 args req, res and callback
             passport.authenticate('local')(req, res, () => {
+                req.flash('success', `Welcome to Yelp Camp ${user.username}`);
                 res.redirect('/campgrounds');
             });
         });
 });
 //login routes
 router.get('/login', (req, res) => {
-    res.render('login', { message: req.flash('error') });
+    res.render('login');
 });
 
 //middleware
@@ -43,20 +46,17 @@ router.post('/login',
         failureRedirect: '/login'
     }),
     (req, res) => {
+        console.log(err);
     });
 
 //logout routes
 router.get('/logout', (req, res) => {
     req.logout();
+    req.flash('success','Log you out');
     res.redirect('/campgrounds');
     //still can go to /secret
 });
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
+
 
 module.exports = router;
