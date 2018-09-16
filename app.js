@@ -69,6 +69,6 @@ app.use("/campgrounds",campgroundRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 
 
-app.listen(port, () => {
+app.listen(port,process.env.IP, () => {
     console.log('Yelp Camp is listening on port:' + port)
 });
