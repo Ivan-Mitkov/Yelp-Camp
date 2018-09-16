@@ -17,19 +17,28 @@ const commentRoutes = require('./routes/comments.js'),
 
 
 const app = express();
-let port = process.env.port || 3000;
+let port = process.env.PORT || 3000;
 // let url = process.env.DATABASEURL||"mongodb://localhost/yelp_camp";
 // mongodb://ivan:YelpCamp1@ds161939.mlab.com:61939/hut
-let url ="mongodb://ivan:YelpCamp1@ds161939.mlab.com:61939/hut";
+const url ="mongodb://ivan:YelpCamp1@ds161939.mlab.com:61939/hut";
 
 //password YelpCamp1
+//wich promise library we use ES6
+mongoose.Promise = global.Promise;
 
-mongoose.connect(url, { useNewUrlParser: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log("connected");
-});
+mongoose.connect(url,{
+    useNewUrlParser: true,
+    autoIndex: false, // Don't build indexes
+    reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+    reconnectInterval: 500, // Reconnect every 500ms
+    poolSize: 10, // Maintain up to 10 socket connections
+    // If not connected, return errors immediately rather than waiting for reconnect
+    bufferMaxEntries: 0,
+    connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    family: 4 // Use IPv4, skip trying IPv6
+  });
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
