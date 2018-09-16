@@ -18,8 +18,8 @@ const commentRoutes = require('./routes/comments.js'),
 
 const app = express();
 let port = process.env.port || 3000;
-
-mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
+let url = process.env.DATABASEURL||"mongodb://localhost/yelp_camp";
+mongoose.connect(url, { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
